@@ -14,11 +14,11 @@ public class ChatClientConfig {
     ChatClient myChatClient(){
 
         var openAiApi = OpenAiApi.builder()
-                .apiKey("sk-febea108ae3a4de19500625e13c43f60")
-                .baseUrl("https://dashscope.aliyuncs.com/compatible-mode")
+                .apiKey("sk-a93cee135086494bb2f7e2bb0a63b0a3")
+                .baseUrl("https://api.deepseek.com")
                 .build();
         var openAiChatOptions = OpenAiChatOptions.builder()
-                .model("qwen3.5-plus")
+                .model("deepseek-chat")
                 .temperature(0.4)
                 .maxTokens(200)
                 .build();
