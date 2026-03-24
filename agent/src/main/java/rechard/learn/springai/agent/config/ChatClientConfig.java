@@ -1,4 +1,4 @@
-package rechard.learn.springai.agent.controller.config;
+package rechard.learn.springai.agent.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;

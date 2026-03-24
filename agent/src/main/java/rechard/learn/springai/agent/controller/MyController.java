@@ -30,7 +30,10 @@ class MyController {
         response.setCharacterEncoding("UTF-8");
         return this.chatClient.prompt()
                 .user(userInput)
-                .system("你是一个智能助手，你的名字叫小k")
+                .system("""
+                       你是一个智能助手，你的名字叫小k
+                       返回markdown格式
+                        """)
                 .stream()
                 .content();
     }
