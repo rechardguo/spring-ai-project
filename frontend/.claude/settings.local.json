@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//g/dev-code/spring-ai-project/agent/src/main/java/rechard/learn/springai/agent/controller/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

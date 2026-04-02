@@ -35,6 +35,7 @@ class MyController {
                        返回markdown格式
                         """)
                 .stream()
-                .content();
+                .content()
+                .concatWithValues("[complete]");
     }
 }

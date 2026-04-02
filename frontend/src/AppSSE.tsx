@@ -7,7 +7,7 @@ interface Message{
     content:string
 }
 
-function App() {
+function AppSSE() {
 
     const [question, setQuestion] = useState('')
     //const [response,SetResponse] = useState('')
@@ -26,7 +26,44 @@ function App() {
         })
         setQuestion('')
         setThink(true)
-        fetch(`${import.meta.env.VITE_AGENT_URL}/stream?msg=${encodeURIComponent(question)}`).then(resp=>{
+
+        const es =new EventSource(`${import.meta.env.VITE_AGENT_URL}/stream?msg=${encodeURIComponent(question)}`)
+        let assistantResp='';
+        es.onmessage=(event)=>{
+            //console.log(event.data);
+
+            if(event.data==='[complete]'){
+                setThink(false)
+                es.close()
+                return
+            }
+
+            assistantResp += event.data
+            SetMessages( pre=>{
+                return [...pre.slice(0,-1),{
+                    type:"assistant",
+                    content:assistantResp
+                }]
+            })
+        }
+
+        es.onopen=()=>{
+            setThink(true)
+            SetMessages( pre=>{
+                return [...pre,{
+                    type:"assistant",
+                    content:''
+                }]
+            })
+        }
+
+        es.onerror=(event)=>{
+            console.error(event)
+            setThink(false)
+            es.close()
+        }
+
+        /*fetch(`${import.meta.env.VITE_AGENT_URL}/stream?msg=${encodeURIComponent(question)}`).then(resp=>{
             let reader = resp.body?.getReader();
             let textDecoder = new TextDecoder();
             let assistantResp='';
@@ -56,7 +93,7 @@ function App() {
                 console.error(e)
             });
 
-        })
+        })*/
     }
 
   return (
@@ -93,4 +130,4 @@ function App() {
   )
 }
 
-export default App
+export default AppSSE
